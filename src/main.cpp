@@ -12,7 +12,7 @@ void print_rules()
 
 void print_points(int points)
 {
-	std::cout<<"POINTS : "<<points<<'\n';
+	std::cout<<std::setw(60)<<"POINTS : "<<points<<'\n';
 }
 
 
@@ -85,7 +85,7 @@ int get_player_input()
 		std::cout<<"Enter answer : ";
 		int answer{};
 		std::cin>>answer;
-		if (answer<0 || answer>48)
+		if (std::cin.fail() || answer<0 || answer>48)
 		{
 			std::cin.clear();
 			ignore_line();
