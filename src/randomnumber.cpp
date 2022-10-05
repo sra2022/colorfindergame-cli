@@ -1,6 +1,6 @@
 #include "randomnumber.h"
-#include <random> //for std::mt19937 & std::uniform_int_distribution
-#include <chrono> //for std::chrono
+#include <random>
+#include <chrono>
 
 namespace Random
 {
@@ -9,10 +9,9 @@ namespace Random
 	std::mt19937 mt{seed};
 }
 
-//random number generator
+
 int Random::get(int min, int max)
 {
 	std::uniform_int_distribution rand{min,max};
 	return rand(mt);
 }
-

@@ -1,5 +1,5 @@
-#ifndef TERMINAL_COLOR_NIGHT_04_10_2022
-#define TERMINAL_COLOR_NIGHT_04_10_2022
+#ifndef TERMINAL_STYLE_NIGHT_04_10_2022
+#define TERMINAL_STYLE_NIGHT_04_10_2022
 #include <iostream>
 #include <string>
 

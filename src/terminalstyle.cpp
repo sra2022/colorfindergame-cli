@@ -43,4 +43,3 @@ namespace Style
 		return bold_string;
 	}
 }
-
