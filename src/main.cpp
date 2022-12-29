@@ -1,20 +1,27 @@
 #include "randomnumber.h"
 #include "terminalstyle.h"
+#include "screen.h"
 #include <iostream>
 #include <iomanip>
 #include <limits>
 
+void ignore_line()
+{
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+}
+
 void print_rules()
 {
+	Screen::clear_screen();
+	Screen::move_cursor_to(0,0);
 	std::cout<<Style::bold()<<std::setw(41)<<"COLOUR FINDER GAME"<<Style::reset()<<'\n';
-	std::cout<<"Find the square which is different in colour\n";
+	std::cout<<">> One square is different in color\n>> Find the square which is different in colour\n>> Press 0 to exit\n>> Press y to start the game\n";
 }
 
 void print_points(int points)
 {
 	std::cout<<std::setw(60)<<"POINTS : "<<points<<'\n';
 }
-
 
 void draw_squares(int correct_answer)
 {
@@ -38,44 +45,29 @@ void draw_squares(int correct_answer)
 			while (column<=8)
 			{
 				if (box_number==correct_answer && (semirow==1 || semirow==3))
-				{
-				std::cout<<"  "<<fgcolor2<<bgcolor2<<std::setw(6)<<box_number<<Style::reset();
-				}
+					std::cout<<"  "<<fgcolor2<<bgcolor2<<std::setw(6)<<box_number<<Style::reset();
 				if (box_number==correct_answer && semirow==2)
 					std::cout<<"  "<<black<<bgcolor2<<std::setw(6)<<box_number<<Style::reset();
 				if (box_number!=correct_answer && (semirow==1 || semirow==3))
-				{
 					std::cout<<"  "<<fgcolor<<bgcolor<<std::setw(6)<<box_number<<Style::reset();
-				}
 				if (box_number!=correct_answer && semirow==2)
-				{
 					std::cout<<"  "<<black<<bgcolor<<std::setw(6)<<box_number<<Style::reset();
-				}
 				if (column==8)
 				{
 					std::cout<<'\n';
 					box_number-=7;
 				}
 				else
-				{
 					box_number++;
-				}
 				column++;
 			}
 			if (semirow==4)
-			{
 				std::cout<<'\n';
-			}
 			semirow++;
 		}
 		row++;
 		box_number+=8;
 	}
-}
-
-void ignore_line()
-{
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
 }
 
 int get_player_input()
@@ -104,31 +96,41 @@ int game()
 	int score{};
 	while(true)
 	{
+		Screen::clear_screen();
+		Screen::move_cursor_to(0,0);
 		print_points(score);
 		int correct_answer=Random::get(1,48);
 		draw_squares(correct_answer);
 		int player_input{get_player_input()};
 		if (player_input==0)
-		{
 			break;
-		}
 		else if (player_input!=correct_answer)
 		{
 			std::cout<<"Wrong! Correct answer is "<<correct_answer<<'\n';
 			break;
 		}
 		else
-		{
 			score++;
-		}
 	}
 	return score;
+}
+
+void start_game()
+{
+	char answer{};
+	std::cout<<"Start game? ";
+	std::cin>>answer;
+	ignore_line;
+	if(answer=='y' || answer=='Y')
+	{
+		int points=game();
+		print_points(points);
+	}
 }
 
 int main()
 {
 	print_rules();
-	int points=game();
-	print_points(points);
+	start_game();
 	return 0;
 }

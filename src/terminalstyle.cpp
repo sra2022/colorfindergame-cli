@@ -8,7 +8,6 @@ Color::Color(int r,int g,int b) : m_r{r},m_g{g},m_b{b}
 	assert(r>=0 && r<256 && g>=0 && g<256 && b>=0 && b<256);
 }
 
-
 Fgcolor::Fgcolor(int r,int g,int b) : Color{r,g,b}
 {
 }
