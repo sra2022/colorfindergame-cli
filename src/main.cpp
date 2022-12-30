@@ -4,6 +4,7 @@
 #include <iostream>
 #include <iomanip>
 #include <limits>
+#include <ctime>
 
 void ignore_line()
 {
@@ -14,13 +15,19 @@ void print_rules()
 {
 	Screen::clear_screen();
 	Screen::move_cursor_to(0,0);
-	std::cout<<Style::bold()<<std::setw(41)<<"COLOUR FINDER GAME"<<Style::reset()<<'\n';
-	std::cout<<">> One square is different in color\n>> Find the square which is different in colour\n>> Press 0 to exit\n>> Press y to start the game\n";
+	std::cout<<Style::bold()<<std::setw(41)<<"COLOUR FINDER GAME"<<Style::reset()<<"\n\n";
+	std::cout<<">> One square is different in color\n>> Find the square which is different in colour\n>> You have 1 minute\n";
+	std::cout<<">> Get maximum points within the time\n>> Press 0 anytime to exit\n>> Press y to start the game\n";
 }
 
 void print_points(int points)
 {
-	std::cout<<std::setw(60)<<"POINTS : "<<points<<'\n';
+	std::cout<<'\n'<<std::setw(60)<<"POINTS : "<<points<<'\n';
+}
+
+void print_points_final(int points)
+{
+	std::cout<<">> "<<Style::bold()<<"POINTS : "<<points<<Style::reset()<<'\n';
 }
 
 void draw_squares(int correct_answer)
@@ -74,14 +81,14 @@ int get_player_input()
 {
 	while(true)
 	{
-		std::cout<<"Enter answer : ";
+		std::cout<<">> Enter answer : ";
 		int answer{};
 		std::cin>>answer;
 		if (std::cin.fail() || answer<0 || answer>48)
 		{
 			std::cin.clear();
 			ignore_line();
-			std::cerr<<"Answer must be the number of any of the boxes or press 0 to exit!\n";
+			std::cerr<<">> Answer must be the number of any of the boxes or press 0 to exit!\n";
 		}
 		else
 		{
@@ -94,7 +101,8 @@ int get_player_input()
 int game()
 {
 	int score{};
-	while(true)
+	std::time_t game_time=std::time(NULL)+60;
+	while(std::time(NULL)<=game_time)
 	{
 		Screen::clear_screen();
 		Screen::move_cursor_to(0,0);
@@ -106,7 +114,7 @@ int game()
 			break;
 		else if (player_input!=correct_answer)
 		{
-			std::cout<<"Wrong! Correct answer is "<<correct_answer<<'\n';
+			std::cout<<">> Wrong! Correct answer is "<<correct_answer<<'\n';
 			break;
 		}
 		else
@@ -118,13 +126,13 @@ int game()
 void start_game()
 {
 	char answer{};
-	std::cout<<"Start game? ";
+	std::cout<<">> Start game? ";
 	std::cin>>answer;
 	ignore_line;
 	if(answer=='y' || answer=='Y')
 	{
 		int points=game();
-		print_points(points);
+		print_points_final(points);
 	}
 }
 
