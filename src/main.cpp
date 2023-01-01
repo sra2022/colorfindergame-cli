@@ -128,7 +128,6 @@ void start_game()
 	char answer{};
 	std::cout<<">> Start game? ";
 	std::cin>>answer;
-	ignore_line;
 	if(answer=='y' || answer=='Y')
 	{
 		int points=game();
