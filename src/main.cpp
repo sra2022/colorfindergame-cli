@@ -127,6 +127,11 @@ int game()
 		else
 			score++;
 	}
+	if(std::time(NULL)>game_time)
+	{
+		Fgcolor red{255,0,0};
+		std::cout<<">> "<<red<<"Time Over"<<Style::reset()<<'\n';
+	}
 	return score;
 }
 
