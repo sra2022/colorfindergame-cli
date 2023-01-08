@@ -15,19 +15,22 @@ void print_rules()
 {
 	Screen::clear_screen();
 	Screen::move_cursor_to(0,0);
-	std::cout<<Style::bold()<<std::setw(41)<<"COLOUR FINDER GAME"<<Style::reset()<<"\n\n";
+	Fgcolor blue{0,200,220};
+	std::cout<<Style::bold()<<std::setw(41)<<blue<<"COLOUR FINDER GAME"<<Style::reset()<<"\n\n";
 	std::cout<<">> One square is different in color\n>> Find the square which is different in colour\n>> You have 1 minute\n";
 	std::cout<<">> Get maximum points within the time\n>> Press 0 anytime to exit\n>> Press y to start the game\n";
 }
 
 void print_points(int points)
 {
-	std::cout<<'\n'<<std::setw(60)<<"POINTS : "<<points<<'\n';
+	Fgcolor color1{0,200,220};
+	std::cout<<'\n'<<std::setw(60)<<"POINTS : "<<color1<<points<<Style::reset()<<'\n';
 }
 
 void print_points_final(int points)
 {
-	std::cout<<">> "<<Style::bold()<<"POINTS : "<<points<<Style::reset()<<'\n';
+	Fgcolor color1{0,200,220};
+	std::cout<<Style::bold()<<">> POINTS : "<<color1<<points<<Style::reset()<<'\n';
 }
 
 void draw_squares(int correct_answer)
@@ -83,7 +86,10 @@ int get_player_input()
 	{
 		std::cout<<">> Enter answer : ";
 		int answer{};
+		Fgcolor color1{0,200,220};
+		std::cout<<color1;
 		std::cin>>answer;
+		std::cout<<Style::reset();
 		if (std::cin.fail() || answer<0 || answer>48)
 		{
 			std::cin.clear();
@@ -114,7 +120,8 @@ int game()
 			break;
 		else if (player_input!=correct_answer)
 		{
-			std::cout<<">> Wrong! Correct answer is "<<correct_answer<<'\n';
+			Fgcolor red{255,0,0},green{0,255,0};
+			std::cout<<">> "<<red<<"Wrong!"<<Style::reset()<<" Correct answer is "<<green<<correct_answer<<Style::reset()<<'\n';
 			break;
 		}
 		else
@@ -123,22 +130,34 @@ int game()
 	return score;
 }
 
+char ask_to_play_again()
+{
+	char answer{};
+	std::cout<<"\n>> Play again(y/n): ";
+	std::cin>>answer;
+	ignore_line();
+	return answer;
+}
+
 void start_game()
 {
 	char answer{};
 	std::cout<<">> Start game? ";
 	std::cin>>answer;
 	ignore_line();
-	if(answer=='y' || answer=='Y')
+	while(answer=='y' || answer=='Y')
 	{
 		int points=game();
 		print_points_final(points);
+		answer=ask_to_play_again();
 	}
 }
 
 int main()
 {
+	Screen::new_screen();
 	print_rules();
 	start_game();
+	Screen::previous_screen();
 	return 0;
 }

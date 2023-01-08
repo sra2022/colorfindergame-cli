@@ -3,8 +3,10 @@
 
 namespace Screen
 {
-		void clear_screen();
-		void move_cursor_to(int line,int column);
+	void new_screen();
+	void previous_screen();
+	void clear_screen();
+	void move_cursor_to(int line,int column);
 };
 
 #endif
