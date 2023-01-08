@@ -14,17 +14,20 @@ void ignore_line()
 void print_rules()
 {
 	Screen::clear_screen();
-	Screen::move_cursor_to(0,0);
+	Screen::move_cursor_to(0,5);
 	Fgcolor blue{0,200,220};
-	std::cout<<Style::bold()<<std::setw(41)<<blue<<"COLOUR FINDER GAME"<<Style::reset()<<"\n\n";
+	std::cout<<Style::bold()<<blue<<"COLOR FINDER GAME :: SRA2022"<<Style::reset()<<"\n\n";
 	std::cout<<">> One square is different in color\n>> Find the square which is different in colour\n>> You have 1 minute\n";
 	std::cout<<">> Get maximum points within the time\n>> Press 0 anytime to exit\n>> Press y to start the game\n";
 }
 
 void print_points(int points)
 {
-	Fgcolor color1{0,200,220};
-	std::cout<<'\n'<<std::setw(60)<<"POINTS : "<<color1<<points<<Style::reset()<<'\n';
+	Fgcolor blue{0,200,220};
+	Screen::move_cursor_to(0,5);
+	std::cout<<Style::bold()<<blue<<"COLOR FINDER GAME :: SRA2022"<<Style::reset();
+	Screen::move_cursor_to(0,48);
+	std::cout<<"POINTS : "<<blue<<points<<Style::reset()<<'\n';
 }
 
 void print_points_final(int points)
